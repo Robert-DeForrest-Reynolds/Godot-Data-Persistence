@@ -1,12 +1,12 @@
 # Godot-Text-File-Data-Persistence
 
-#### add(field_name:String, field_value:Variant) -> Variant
+#### `add(field_name:String, field_value:Variant) -> Variant`
 Add a new field to the data dict. If the field already exists, it will do nothing, and return void.
 
-#### remove(field_name:String) -> Variant
+#### `remove(field_name:String) -> Variant`
 Removes a field. If the field does not exist, it will present a error message.
 
-#### update(field_name:String, field_value:Variant) -> Variant
+#### `update(field_name:String, field_value:Variant) -> Variant`
 Update the value of an existing field.
 
 
