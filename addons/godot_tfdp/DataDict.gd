@@ -127,6 +127,5 @@ func load_from_file() -> Variant:
 				var coords = dict_value.value.split(",")
 				dict_value.value = Vector2(int(coords[0].replace("(", "")), int(coords[1].replace(")", "")))
 		fields[line_data[0]] = dict_value
-		print(dict_value.value)
 	file.close()
 	return
