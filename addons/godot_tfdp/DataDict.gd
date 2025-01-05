@@ -17,14 +17,8 @@ class DictValue:
 		value = initial_value
 		value_type_int = typeof(value)
 		if value_type_int == TYPE_OBJECT:
-			var script = value.get_script()
-			# If is a class_name script
-			if script.source_code != "":
-				value_type = value.get_script().get_global_name()
-				Data.types_representation[value_type] = value_type_int
-			# If it is a inner class within another script
-			else:
-				value_type = Data.inner_custom_classes[Data.inner_custom_classes.find(value.inner_class_name)]
+			Data.Error.new("Non-primitive type are unsupported")
+			value = null
 		else:
 			value_type = type_string(value_type_int)
 
@@ -37,12 +31,13 @@ func _init(data_dict_name:String) -> void:
 
 
 func add(field_name:String, field_value:Variant) -> Variant:
-	if field_name in fields.keys():
-		return Data.Error.new("Error Adding Field: %s already exists in %s" % [field_name, name], false)
+	if field_name in fields.keys(): return
 	if field_value is Object:
 		for property in field_value.get_property_list():
 			print(property)
 	var dict_value = DictValue.new(field_value)
+	if dict_value.value == null:
+		return Data.Error.new("Error Adding Field: most likely due to non-primitive type being used")
 	fields[field_name] = dict_value
 	return
 
@@ -76,13 +71,13 @@ func remove(field_name:String) -> Variant:
 func remove_multiple(field_names:Array) -> Variant: return
 
 
-func save():
+func save() -> void:
 	var file = FileAccess.open(Data.Path + "/%s.txt" % name, FileAccess.WRITE)
 	var data = ""
 	var size = fields.size() - 1
 	var line_counter = 0
 	for field in fields.keys():
-		data += "~".join([field, str(fields[field].value), str(fields[field].value_type)])
+		data += Data.delimiter.join([field, str(fields[field].value), str(fields[field].value_type)])
 		if line_counter != size:
 			data += "\n"
 	file.store_string(data)
@@ -104,7 +99,7 @@ func load_from_file() -> Variant:
 		return Data.Error.new("Unknown error, but could not load %s even though it supposedly exists" % name)
 	for line in file.get_as_text().split("\n"):
 		if line == "": continue
-		var line_data = line.split("~")
+		var line_data = line.split(Data.delimiter)
 		var dict_value = DictValue.new(line_data[1])
 		var type = Data.types_representation[line_data[2]]
 		if typeof(type) == TYPE_INT:

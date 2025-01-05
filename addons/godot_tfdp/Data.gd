@@ -34,9 +34,6 @@ func _ready() -> void:
 			Data.types_representation[type_string] = type_value
 	if !DirAccess.dir_exists_absolute(Path):
 		DirAccess.make_dir_absolute(Path)
-
-
-func initialize():
 	check_for_existing_data_dicts()
 
 
@@ -59,7 +56,7 @@ func save_all() -> Variant: return
 
 func new_data_dict(dict_name:String) -> Variant:
 	if dict_name in data.keys():
-		return Error.new("Data Dict %s already exists during reload" % dict_name, true)
+		return
 	data[dict_name] = DataDict.new(dict_name)
 	return data[dict_name]
 
