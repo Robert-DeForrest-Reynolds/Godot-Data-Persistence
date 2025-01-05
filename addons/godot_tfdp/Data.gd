@@ -9,12 +9,9 @@ var data = {}
 
 var delimiter = "~"
 
-var custom_classes:Dictionary = {
-
-}
-
 var types_representation = {
 }
+
 
 class Error:
 	var scene_root = Engine.get_main_loop().get_root()
@@ -35,6 +32,7 @@ func _ready() -> void:
 	if !DirAccess.dir_exists_absolute(Path):
 		DirAccess.make_dir_absolute(Path)
 	check_for_existing_data_dicts()
+	print("Data Persistence Loaded")
 
 
 func check_for_existing_data_dicts() -> Variant:
@@ -51,7 +49,9 @@ func data_dict_exists(dict_name:String) -> bool:
 	return false
 
 
-func save_all() -> Variant: return
+func save_all() -> void:
+	for data_dict in data:
+		data_dict.save()
 
 
 func new_data_dict(dict_name:String) -> Variant:
@@ -59,15 +59,3 @@ func new_data_dict(dict_name:String) -> Variant:
 		return
 	data[dict_name] = DataDict.new(dict_name)
 	return data[dict_name]
-
-
-func register_class(custom_class:Variant, serialized_fields:Array[String]) -> Variant:
-	if custom_class in custom_classes.keys():
-		return Error.new("Inner Class already registered: %s" % custom_class)
-	var instance = custom_class.new()
-	var global_name = instance.get_script().get_global_name()
-	print(global_name)
-	instance.free()
-	types_representation[global_name] = custom_class
-	custom_classes[custom_class] = serialized_fields
-	return
