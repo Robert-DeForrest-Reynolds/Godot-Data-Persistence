@@ -20,13 +20,16 @@ Saves all existing DataDicts at once.
 ## DataDict Methods
 
 #### `add(field_name:String, field_value:Variant) -> Variant`
-Add a new field to the data dict. If the field already exists, it will do nothing, and return void. If you add a non-primitive type, an error will pop, and the field will not be added.
+#### `add(fields:Dictionary) -> Variant`
+Add a new field, or fields if given a Dictionary, to the data dict. If the field already exists, it will do nothing, and return void. If you add a non-primitive type, an error will pop, and the field will not be added.
 
 #### `remove(field_name:String) -> Variant`
-Removes a field. If the field does not exist, it will present a error message.
+#### `remove(field_names:Array) -> Variant`
+Removes a field, or fields if given an Array. If the field does not exist, it will present a error message.
 
 #### `update(field_name:String, field_value:Variant) -> Variant`
-Update the value of an existing field.
+#### `update(fields:Dictionary) -> Variant`
+Update the value or values fi given a dictonary, of an existing field.
 
 #### `save() -> void`
 Saves the data dict to a text file.
@@ -87,10 +90,9 @@ var player_mana
 func create_data_dicts():
 	Data.new_data_dict("player_data")
 
-	# Or you can update multiple fields
-	Data.data["player_data"].update({"health": player_health,
-									 "position": position
-									 })
+	Data.data["player_data"].add({"health": player_health,
+								  "position": position
+								  })
 
 	Data.data["player_data"].save()
 
@@ -101,7 +103,6 @@ func load_data():
 
 
 func _ready() -> void:
-	create_data_dicts()
 	load_data()
-
+	create_data_dicts()
 ```

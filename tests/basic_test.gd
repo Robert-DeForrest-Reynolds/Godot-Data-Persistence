@@ -14,7 +14,7 @@ func create_data_dicts():
 								  "position": position
 								  })
 
-	#Data.data["player_data"].save()
+	Data.data["player_data"].save()
 
 
 func load_data():
