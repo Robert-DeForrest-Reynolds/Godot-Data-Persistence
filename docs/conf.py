@@ -7,8 +7,8 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'Godot Text File Data Persistence'
-copyright = '2025, Robert Reynolds'
-author = 'Robert Reynolds'
+copyright = '2025, Robert Lawrence DeForrest Reynolds'
+author = 'Robert Lawrence DeForrest Reynolds'
 release = '0.0.1'
 
 # -- General configuration ---------------------------------------------------
