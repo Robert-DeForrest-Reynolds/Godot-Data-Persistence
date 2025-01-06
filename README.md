@@ -58,8 +58,8 @@ func _ready() -> void:
 
 	# Or you can update multiple fields
 	Data.data["player_data"].update({"health": player_health,
-									 "mana": player_mana
-									 })
+					 "mana": player_mana
+					 })
 
 	Data.data["player_data"].add("position", position)
 
@@ -69,8 +69,8 @@ func _ready() -> void:
 	Data.new_data_dict("settings")
 
 	Data.data["settings"].add({"ui_volume":ui_volume,
-							   "music_volume:":music_volume,
-							   })
+				   "music_volume:":music_volume,
+				   })
 
 	Data.data["settings"].save()
 ```
@@ -91,8 +91,8 @@ func create_data_dicts():
 	Data.new_data_dict("player_data")
 
 	Data.data["player_data"].add({"health": player_health,
-								  "position": position
-								  })
+				      "position": position
+				     })
 
 	Data.data["player_data"].save()
 
