@@ -14,6 +14,7 @@ config/name="Godot-Text-File-Data-Persistence"
 run/main_scene="res://tests/basic_test.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
+config/tags=PackedStringArray("project")
 
 [autoload]
 
