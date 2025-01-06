@@ -2,9 +2,14 @@
 
 All DataDict objects are stored as plain text files. They are essentially CSV files, but the default delimiter is `~`. You can change the delimiter if you'd like, but if you do so afterward saving and DataDicts, you will have to convert those files.
 
-All primitives types are supported.
 
-By default 
+
+All DataDicts are placed in the "user://Data" directory. During launch, any DataDicts within that directory are automatically loaded on startup.
+
+
+
+Currently only int, float, String, Vector2, and Vector2i are supported data types to reload. I hope to support the rest of the data types soon.
+
 
 ---
 
@@ -106,3 +111,8 @@ func _ready() -> void:
 	load_data()
 	create_data_dicts()
 ```
+
+
+
+
+Work In Progress Documentation: https://godot-text-file-data-persistence.readthedocs.io/en/latest/
