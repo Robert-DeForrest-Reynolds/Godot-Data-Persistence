@@ -28,10 +28,6 @@ func create_data_dicts():
 
 	Data.new_data_dict("person_data")
 
-	var new_person = Person.new("John")
-
-	Data.data["person_data"].add("John", new_person)
-
 
 func load_data():
 	position = Data.data["player_data"].fields["position"].value
@@ -40,4 +36,3 @@ func load_data():
 
 func _ready() -> void:
 	create_data_dicts()
-	load_data()

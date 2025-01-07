@@ -1,21 +1,6 @@
 class_name DataDict extends Node
 
 
-class DictValue:
-	var value
-	var value_type_int
-	var value_type
-	var types_representation
-
-	func _init(initial_value:Variant) -> void:
-		value = initial_value
-		value_type_int = typeof(value)
-		if value_type_int == TYPE_OBJECT:
-			Data.Error.new("Non-primitive type are unsupported")
-			value = null
-		else:
-			value_type = type_string(value_type_int)
-
 static var fields:Dictionary = {}
 static var dict_name
 
@@ -25,13 +10,13 @@ func _init(data_dict_name:String) -> void:
 
 
 func load_from_file() -> Variant:
-	var file = FileAccess.open(Data.Path + "/%s.txt" % dict_name, FileAccess.READ)
+	var file = FileAccess.open(Data.path + "/%s.txt" % dict_name, FileAccess.READ)
 	if file == null:
-		return Data.Error.new("Unknown error, but could not load %s even though it supposedly exists" % dict_name)
+		return Error.new("Unknown error, but could not load %s even though it supposedly exists" % dict_name)
 	for line in file.get_as_text().split("\n"):
 		if line == "": continue
 		var line_data = line.split(Data.delimiter)
-		var dict_value = DictValue.new(line_data[1])
+		var dict_value = DataDictValue.new(line_data[1])
 		var type = Data.types_representation[line_data[2]]
 		match type:
 			TYPE_INT:
@@ -55,57 +40,45 @@ func load_from_file() -> Variant:
 	return
 
 
-static func Add(FieldName, FieldValue:Variant=null) -> Variant:
-	return add(FieldName, FieldValue)
-
-
 static func add(field_name, field_value:Variant=null) -> Variant:
 	if typeof(field_name) == TYPE_STRING:
 		if field_name in fields.keys(): return
-		var dict_value = DictValue.new(field_value)
+		var dict_value = DataDictValue.new(field_value)
 		if dict_value.value == null:
-			return Data.Error.new("Error Adding Field: most likely due to non-primitive type being used", false)
+			return Error.new("Error Adding Field: most likely due to non-primitive type being used", false)
 		fields[field_name] = dict_value
 		return
 	else:
 		# Treat field_name as Dictionary, essentially field_names
 		for field in field_name.keys():
 			if field in fields.keys(): continue
-			var dict_value = DictValue.new(field_name[field])
+			var dict_value = DataDictValue.new(field_name[field])
 			if dict_value.value == null:
-				Data.Error.new("Error Adding Field: most likely due to non-primitive type being used, will continue adding the rest of the items.", false)
+				Error.new("Error Adding Field: most likely due to non-primitive type being used, will continue adding the rest of the items.", false)
 				continue
 			fields[field] = dict_value
 		return
 
 
-static func Update(FieldName, FieldValue:Variant=null) -> Variant:
-	return update(FieldName, FieldValue)
-
-
 static func update(field_name:Variant, field_value:Variant=null) -> Variant:
 	if typeof(field_name) == TYPE_STRING:
 		if not field_name in fields.keys():
-			return Data.Error.new("Error Updating Field: %s doesn't exist" % [field_name, dict_name], false)
-		var dict_value = DictValue.new(field_value)
+			return Error.new("Error Updating Field: %s doesn't exist" % [field_name, dict_name], false)
+		var dict_value = DataDictValue.new(field_value)
 		fields[field_name] = dict_value
 		return
 	else:
 		# Treat field_name as Dictionary, essentially field_names
 		for field in field_name.keys():
-			var new_dict_value = DictValue.new(field_name[field])
+			var new_dict_value = DataDictValue.new(field_name[field])
 			fields[field] = new_dict_value
 		return
-
-
-static func Remove(Removal:Variant) -> Variant:
-	return remove(Removal)
 
 
 static func remove(removal:Variant) -> Variant:
 	if typeof(removal) == TYPE_STRING:
 		if not removal in fields.keys():
-			return Data.Error.new("Error Removing Field: %s doesn't exist in %s" % [removal, dict_name], false)
+			return Error.new("Error Removing Field: %s doesn't exist in %s" % [removal, dict_name], false)
 		if fields[removal] is not RefCounted:
 			fields[removal].free()
 		fields.erase(removal)
@@ -113,13 +86,9 @@ static func remove(removal:Variant) -> Variant:
 	else:
 		for field_name in removal:
 			if not field_name in fields.keys():
-				return Data.Error.new("Error Removing Field: %s doesn't exist" % [field_name, dict_name], false)
+				return Error.new("Error Removing Field: %s doesn't exist" % [field_name, dict_name], false)
 			fields.erase(field_name)
 		return
-
-
-static func Exists(Check:Variant) -> bool:
-	return exists(Check)
 
 
 static func exists(check:Variant) -> bool:
@@ -134,12 +103,8 @@ static func exists(check:Variant) -> bool:
 		return true
 
 
-static func Save() -> void:
-	Save()
-
-
 static func save() -> void:
-	var file = FileAccess.open(Data.Path + "/%s.txt" % dict_name, FileAccess.WRITE)
+	var file = FileAccess.open(Data.path + "/%s.txt" % dict_name, FileAccess.WRITE)
 	var data = ""
 	var size = fields.size() - 1
 	var line_counter = 0

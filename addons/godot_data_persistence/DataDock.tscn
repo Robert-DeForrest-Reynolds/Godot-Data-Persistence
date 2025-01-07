@@ -1,0 +1,81 @@
+[gd_scene load_steps=5 format=3 uid="uid://d0joksob1355e"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sccga"]
+bg_color = Color(0.4, 0.2, 0.6, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.118581, 0.118581, 0.118581, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4cfba"]
+bg_color = Color(0.176471, 0.176471, 0.176471, 1)
+
+[sub_resource type="Theme" id="Theme_uk13l"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jb2ak"]
+bg_color = Color(0.176471, 0.176471, 0.176471, 1)
+
+[node name="ViewData" type="PanelContainer"]
+custom_minimum_size = Vector2(100, 600)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sccga")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LoadData" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Load Data"
+
+[node name="HBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/HBox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="DataDicts" type="ItemList" parent="MarginContainer/VBoxContainer/HBox/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_4cfba")
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBox"]
+layout_mode = 2
+theme = SubResource("Theme_uk13l")
+theme_override_styles/panel = SubResource("StyleBoxFlat_jb2ak")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBox/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/HBox/PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Contents" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBox/PanelContainer/MarginContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
