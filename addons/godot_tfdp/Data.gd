@@ -43,15 +43,27 @@ func check_for_existing_data_dicts() -> Variant:
 	return
 
 
+func Data_Dict_Exists(DictName:String) -> bool:
+	return data_dict_exists(DictName)
+
+
 func data_dict_exists(dict_name:String) -> bool:
 	if dict_name in data.keys():
 		return true
 	return false
 
 
+func Save_All() -> void:
+	save_all()
+
+
 func save_all() -> void:
 	for data_dict in data:
 		data_dict.save()
+
+
+func New_Data_Dict(DictName:String) -> Variant:
+	return new_data_dict(DictName)
 
 
 func new_data_dict(dict_name:String) -> Variant:

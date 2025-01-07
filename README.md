@@ -11,6 +11,8 @@ All DataDicts are placed in the "user://Data" directory. During launch, any Data
 Currently only int, float, String, Vector2, and Vector2i are supported data types to reload. I hope to support the rest of the data types soon.
 
 
+All functions have snake_case forms as well as PascalCase, because well, I just prefer PascalCase.
+
 ---
 
 ## Data Methods
@@ -96,8 +98,8 @@ func create_data_dicts():
 	Data.new_data_dict("player_data")
 
 	Data.data["player_data"].add({"health": player_health,
-				      "position": position
-				     })
+					  "position": position
+					 })
 
 	Data.data["player_data"].save()
 
