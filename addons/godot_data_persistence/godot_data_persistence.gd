@@ -7,12 +7,12 @@ var Debug = false
 const GLOBAL_NAME = "Data"
 
 
-func _enable_plugin():
-	add_autoload_singleton(GLOBAL_NAME, "res://addons/godot_tfdp/Data.gd")
-
-
-func _disable_plugin():
-	remove_autoload_singleton(GLOBAL_NAME)
+#func _enable_plugin():
+	#add_autoload_singleton(GLOBAL_NAME, "res://addons/godot_tfdp/Data.gd")
+#
+#
+#func _disable_plugin():
+	#remove_autoload_singleton(GLOBAL_NAME)
 
 
 func _init() -> void:

@@ -1,15 +1,28 @@
+class_name Data
 extends Node
+
+# Users when developing games tend to save:
+# - whole objects, or specific properties of objects
+# - lists of integers or floats that represent a multitude of states, or values
+# - specific fields that are uncategorized, and are better off as key value pairs
+
+# User when developing games reload data, and require:
+# - objects to be reinstantiated as whole, or with specific properties
+# - lists of integers or floats spread across a multitude of specific objects, or values
+#	- more specifically ui needs to be filled out generally
+# 	- profile data needs to be filled out
+# essentially, there needs to be a `_data_injection` phase
 
 var main_loop = Engine.get_main_loop()
 var scene_root = main_loop.get_root()
 
-var Path = "user://Data"
+static var Path = "user://Data"
 
-var data = {}
+static var data = {}
 
-var delimiter = "~"
+static var delimiter = "~"
 
-var types_representation = {
+static var types_representation = {
 }
 
 
@@ -28,7 +41,7 @@ func _ready() -> void:
 	for type_value in range(Variant.Type.TYPE_NIL, Variant.Type.TYPE_MAX):
 		var type_string = type_string(type_value)
 		if type_string != "":
-			Data.types_representation[type_string] = type_value
+			types_representation[type_string] = type_value
 	if !DirAccess.dir_exists_absolute(Path):
 		DirAccess.make_dir_absolute(Path)
 	check_for_existing_data_dicts()
@@ -43,30 +56,30 @@ func check_for_existing_data_dicts() -> Variant:
 	return
 
 
-func Data_Dict_Exists(DictName:String) -> bool:
+static func Data_Dict_Exists(DictName:String) -> bool:
 	return data_dict_exists(DictName)
 
 
-func data_dict_exists(dict_name:String) -> bool:
+static func data_dict_exists(dict_name:String) -> bool:
 	if dict_name in data.keys():
 		return true
 	return false
 
 
-func Save_All() -> void:
+static func Save_All() -> void:
 	save_all()
 
 
-func save_all() -> void:
+static func save_all() -> void:
 	for data_dict in data:
 		data_dict.save()
 
 
-func New_Data_Dict(DictName:String) -> Variant:
+static func New_Data_Dict(DictName:String) -> Variant:
 	return new_data_dict(DictName)
 
 
-func new_data_dict(dict_name:String) -> Variant:
+static func new_data_dict(dict_name:String) -> Variant:
 	if dict_name in data.keys():
 		return
 	data[dict_name] = DataDict.new(dict_name)

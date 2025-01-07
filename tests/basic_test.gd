@@ -4,17 +4,33 @@ var ui_volume:float = 12.0
 var music_volume:float = 12.0
 
 var player_health:int = 50
-var player_mana
+
+
+class Person:
+	var name
+	var Level
+	var Experience
+	var Job
+
+	func _init(initial_name:String) -> void:
+		name = initial_name
 
 
 func create_data_dicts():
 	Data.new_data_dict("player_data")
+
 
 	Data.data["player_data"].add({"health": player_health,
 								  "position": position
 								  })
 
 	Data.data["player_data"].save()
+
+	Data.new_data_dict("person_data")
+
+	var new_person = Person.new("John")
+
+	Data.data["person_data"].add("John", new_person)
 
 
 func load_data():
@@ -23,5 +39,5 @@ func load_data():
 
 
 func _ready() -> void:
-	load_data()
 	create_data_dicts()
+	load_data()

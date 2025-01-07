@@ -16,10 +16,6 @@ run/main_scene="res://tests/basic_test.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
-[autoload]
-
-Data="*res://addons/godot_tfdp/Data.gd"
-
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot_tfdp/plugin.cfg")

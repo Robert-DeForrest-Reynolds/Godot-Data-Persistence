@@ -16,18 +16,18 @@ class DictValue:
 		else:
 			value_type = type_string(value_type_int)
 
-
-var fields:Dictionary = {}
+static var fields:Dictionary = {}
+static var dict_name
 
 
 func _init(data_dict_name:String) -> void:
-	name = data_dict_name
+	dict_name = data_dict_name
 
 
 func load_from_file() -> Variant:
-	var file = FileAccess.open(Data.Path + "/%s.txt" % name, FileAccess.READ)
+	var file = FileAccess.open(Data.Path + "/%s.txt" % dict_name, FileAccess.READ)
 	if file == null:
-		return Data.Error.new("Unknown error, but could not load %s even though it supposedly exists" % name)
+		return Data.Error.new("Unknown error, but could not load %s even though it supposedly exists" % dict_name)
 	for line in file.get_as_text().split("\n"):
 		if line == "": continue
 		var line_data = line.split(Data.delimiter)
@@ -55,11 +55,11 @@ func load_from_file() -> Variant:
 	return
 
 
-func Add(FieldName, FieldValue:Variant=null) -> Variant:
+static func Add(FieldName, FieldValue:Variant=null) -> Variant:
 	return add(FieldName, FieldValue)
 
 
-func add(field_name, field_value:Variant=null) -> Variant:
+static func add(field_name, field_value:Variant=null) -> Variant:
 	if typeof(field_name) == TYPE_STRING:
 		if field_name in fields.keys(): return
 		var dict_value = DictValue.new(field_value)
@@ -79,14 +79,14 @@ func add(field_name, field_value:Variant=null) -> Variant:
 		return
 
 
-func Update(FieldName, FieldValue:Variant=null) -> Variant:
+static func Update(FieldName, FieldValue:Variant=null) -> Variant:
 	return update(FieldName, FieldValue)
 
 
-func update(field_name:Variant, field_value:Variant=null) -> Variant:
+static func update(field_name:Variant, field_value:Variant=null) -> Variant:
 	if typeof(field_name) == TYPE_STRING:
 		if not field_name in fields.keys():
-			return Data.Error.new("Error Updating Field: %s doesn't exist" % [field_name, name], false)
+			return Data.Error.new("Error Updating Field: %s doesn't exist" % [field_name, dict_name], false)
 		var dict_value = DictValue.new(field_value)
 		fields[field_name] = dict_value
 		return
@@ -98,14 +98,14 @@ func update(field_name:Variant, field_value:Variant=null) -> Variant:
 		return
 
 
-func Remove(Removal:Variant) -> Variant:
+static func Remove(Removal:Variant) -> Variant:
 	return remove(Removal)
 
 
-func remove(removal:Variant) -> Variant:
+static func remove(removal:Variant) -> Variant:
 	if typeof(removal) == TYPE_STRING:
 		if not removal in fields.keys():
-			return Data.Error.new("Error Removing Field: %s doesn't exist in %s" % [removal, name], false)
+			return Data.Error.new("Error Removing Field: %s doesn't exist in %s" % [removal, dict_name], false)
 		if fields[removal] is not RefCounted:
 			fields[removal].free()
 		fields.erase(removal)
@@ -113,16 +113,16 @@ func remove(removal:Variant) -> Variant:
 	else:
 		for field_name in removal:
 			if not field_name in fields.keys():
-				return Data.Error.new("Error Removing Field: %s doesn't exist" % [field_name, name], false)
+				return Data.Error.new("Error Removing Field: %s doesn't exist" % [field_name, dict_name], false)
 			fields.erase(field_name)
 		return
 
 
-func Exists(Check:Variant) -> bool:
+static func Exists(Check:Variant) -> bool:
 	return exists(Check)
 
 
-func exists(check:Variant) -> bool:
+static func exists(check:Variant) -> bool:
 	if typeof(check) == TYPE_STRING:
 		if check in fields.keys():
 			return true
@@ -134,12 +134,12 @@ func exists(check:Variant) -> bool:
 		return true
 
 
-func Save() -> void:
+static func Save() -> void:
 	Save()
 
 
-func save() -> void:
-	var file = FileAccess.open(Data.Path + "/%s.txt" % name, FileAccess.WRITE)
+static func save() -> void:
+	var file = FileAccess.open(Data.Path + "/%s.txt" % dict_name, FileAccess.WRITE)
 	var data = ""
 	var size = fields.size() - 1
 	var line_counter = 0
