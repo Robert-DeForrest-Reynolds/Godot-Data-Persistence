@@ -41,41 +41,108 @@ layout_mode = 2
 [node name="LoadData" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Load Data"
+text = "Load Data Files"
 
 [node name="HBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/HBox"]
-custom_minimum_size = Vector2(200, 0)
+[node name="DataFiles" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBox"]
 layout_mode = 2
 
-[node name="DataDicts" type="ItemList" parent="MarginContainer/VBoxContainer/HBox/ScrollContainer"]
+[node name="DataFilesLabel" type="Label" parent="MarginContainer/VBoxContainer/HBox/DataFiles"]
+layout_mode = 2
+text = "Data Files"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/HBox/DataFiles"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="KeysAndObjects" type="ItemList" parent="MarginContainer/VBoxContainer/HBox/DataFiles/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_4cfba")
+
+[node name="ExampleKey" type="Label" parent="MarginContainer/VBoxContainer/HBox/DataFiles/ScrollContainer/KeysAndObjects"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "player_data"
+
+[node name="KeysAndObjects" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBox"]
+layout_mode = 2
+
+[node name="KeysAndObjectsLabel" type="Label" parent="MarginContainer/VBoxContainer/HBox/KeysAndObjects"]
+layout_mode = 2
+text = "Keys & Objects"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/HBox/KeysAndObjects"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="KeysAndObjects" type="ItemList" parent="MarginContainer/VBoxContainer/HBox/KeysAndObjects/ScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_4cfba")
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBox"]
+[node name="ExampleKey" type="Label" parent="MarginContainer/VBoxContainer/HBox/KeysAndObjects/ScrollContainer/KeysAndObjects"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "player_data"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBox"]
 layout_mode = 2
+
+[node name="KeysAndObjectsLabel" type="Label" parent="MarginContainer/VBoxContainer/HBox/VBoxContainer"]
+layout_mode = 2
+text = "Values & Properties"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBox/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 theme = SubResource("Theme_uk13l")
 theme_override_styles/panel = SubResource("StyleBoxFlat_jb2ak")
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBox/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBox/VBoxContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/HBox/PanelContainer/MarginContainer"]
-custom_minimum_size = Vector2(200, 0)
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/HBox/VBoxContainer/PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 
-[node name="Contents" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBox/PanelContainer/MarginContainer/ScrollContainer"]
+[node name="Contents" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBox/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="example" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBox/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/Contents"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBox/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/Contents/example"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "health"
+
+[node name="SpinBox" type="SpinBox" parent="MarginContainer/VBoxContainer/HBox/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/Contents/example"]
+layout_mode = 2

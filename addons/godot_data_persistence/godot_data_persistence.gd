@@ -10,7 +10,6 @@ var data_dict_list:ItemList
 var contents:VBoxContainer
 var icon
 
-# Replace this value with a PascalCase autoload name, as per the GDScript style guide.
 const GLOBAL_NAME = "Data"
 
 
@@ -21,6 +20,7 @@ func _disable_plugin():
 
 func _init() -> void:
 	print("Initializing Text File Data Persistence")
+	# Pineapple Icon
 	var loaded_icon = load("res://addons/godot_data_persistence/pineapple.png")
 	var icon_image = Image.new()
 	icon_image = loaded_icon.get_image()
@@ -28,8 +28,7 @@ func _init() -> void:
 	icon = ImageTexture.create_from_image(icon_image)
 
 
-func _has_main_screen():
-	return true
+func _has_main_screen(): return true
 
 
 func _make_visible(visible):
@@ -37,13 +36,10 @@ func _make_visible(visible):
 		data_dock.visible = visible
 
 
-func _get_plugin_name():
-	return "View Data"
+func _get_plugin_name(): return "View Data"
 
 
-func _get_plugin_icon():
-	# Must return some kind of Texture for the icon.
-	return icon
+func _get_plugin_icon(): return icon
 
 
 func _enter_tree() -> void:
@@ -77,6 +73,7 @@ func load_file_fields(selection_index:int):
 	for line in file.get_as_text().split("\n"):
 		if line == "":continue
 		var h_box = HBoxContainer.new()
+		h_box.set_h_size_flags(HBoxContainer.SIZE_FILL)
 		contents.add_child(h_box)
 		var line_data = line.split("~")
 		var new_label = DataLabel.instantiate()
@@ -86,3 +83,8 @@ func load_file_fields(selection_index:int):
 			var new_spin_box = SpinBox.new()
 			new_spin_box.value = int(line_data[1])
 			h_box.add_child(new_spin_box)
+		if line_data[2] == "Vector2": # this is what a vector2 looks like saved: (0, 0)
+			var new_line_edit = LineEdit.new()
+			var vector2 = line_data[1].split(", ")
+			new_line_edit.text = "%s, %s" % [vector2[0][1], vector2[1][0]]
+			h_box.add_child(new_line_edit)

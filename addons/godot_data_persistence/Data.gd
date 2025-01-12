@@ -1,14 +1,34 @@
 class_name Data extends Control
 
+# There is a default set of information saved, this helps with getting up and running,
+# and as well are good analytics to maybe keep in
+#	- current scene
+#	- settings file
+#		- resolution, window type, video settings, etc.
+#		- audio settings
+
+# This library is meant to facilitate a basic need for database interaction with a game
+# There are a lot of game implementation that probably cannot use this library,
+# but I hope this tool is still helpful in game implementation where data persisence
+# needs fit perfectly with this tool
+
+# You can make a DataDict, which is a Key Value Pair dictionary
+	# add, update, remove, save
+# You can add Objects to Persistent Objects, which is a dictionary, and these will save
+# automatically
+
+# For scene reloading for example, any object is saved, and the current_scene is saved
+# And you would simply reload the current scene, and the state of the current entities
+
 # Users when developing games tend to save:
 # - whole objects, or specific properties of objects
-# - lists of integers or floats that represent a multitude of states, or values
+# - lists of integers or floats that represent a multitude of states, or values from a multitude of objects
 # - specific fields that are uncategorized, and are better off as key value pairs
 
 # User when developing games reload data, and require:
 # - objects to be reinstantiated as whole, or with specific properties
 # - lists of integers or floats spread across a multitude of specific objects, or values
-#	- more specifically ui needs to be filled out generally
+#	- ui needs to be filled out generally
 # 	- profile data needs to be filled out
 # essentially, there needs to be a `_data_injection` phase
 
@@ -21,6 +41,16 @@ static var delimiter = "~"
 static var data = { # :Dictionary[String:DataDict]
 	"test":"test"
 }
+
+# Different ways to represent an object, or value
+
+# key value pairs vs object serialization
+# i.e.
+# store declarative names and values vs store whole objects
+# both are valuable and useful, there needs to be a gentle balance between both
+
+# files need to be optionally easily readable, and interactable
+# files elsewise will be written in binary format
 
 static var types_representation = { # :Dictionary[String, int]
 }

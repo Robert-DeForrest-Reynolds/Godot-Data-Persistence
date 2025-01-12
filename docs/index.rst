@@ -3,13 +3,10 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Godot Text File Data Persistence documentation
+Godot Data Persistence documentation
 ==============================================
 
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
-
+This plugin is intended to help developers easily implement, and interact with game data.
 
 .. toctree::
    :maxdepth: 2
