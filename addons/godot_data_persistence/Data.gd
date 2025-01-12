@@ -38,6 +38,9 @@ static var scene_root = main_loop.get_root()
 static var path = "user://Data"
 static var delimiter = "~"
 
+#
+static var default_data = false
+
 static var data = { # :Dictionary[String:DataDict]
 	"test":"test"
 }
